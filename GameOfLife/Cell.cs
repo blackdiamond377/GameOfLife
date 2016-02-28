@@ -11,10 +11,13 @@ namespace GameOfLife
     {
 
         bool _isAlive;
+        int row, col;
 
-        public Cell(bool isAlive)
+        public Cell(bool isAlive, int row, int col)
         {
             this._isAlive = isAlive;
+            this.row = row;
+            this.col = col;
         }
 
         public bool isAlive
