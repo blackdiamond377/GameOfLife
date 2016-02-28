@@ -10,14 +10,15 @@ namespace GameOfLife
     class Cell
     {
 
-        bool _isAlive;
-        int row, col;
+        bool _isAlive, _willAlive,
+             _updated;
+        int _row, _col;
 
         public Cell(bool isAlive, int row, int col)
         {
             this._isAlive = isAlive;
-            this.row = row;
-            this.col = col;
+            this._row = row;
+            this._col = col;
         }
 
         public bool isAlive
@@ -28,7 +29,37 @@ namespace GameOfLife
             }
             set
             {
-                _isAlive = value;
+                if (!_updated) _updated = true;
+                _willAlive = value;
+            }
+        }
+
+        public void update()
+        {
+            if (!_updated)
+            {
+                _isAlive = _willAlive;
+                _updated = false;
+            }
+            else
+            {
+                throw new Exception(String.Format("You didn't update cell {0]{1} before updating", _row, _col));
+            }
+        }
+
+        public int row
+        {
+            get
+            {
+                return _row;
+            }
+        }
+
+        public int col
+        {
+            get
+            {
+                return _col;
             }
         }
     }
