@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace GameOfLife
 {
 
-    class Cell
+    public class Cell
     {
 
         bool _isAlive, _willAlive,

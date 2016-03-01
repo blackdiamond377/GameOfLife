@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfLife", "GameOfLife.csproj", "{D74F65C4-BE19-4D2E-8970-609DA2EF2C66}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDisplay", "..\GameDisplay\GameDisplay.csproj", "{307E81D3-718C-410B-B180-C79616993750}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D74F65C4-BE19-4D2E-8970-609DA2EF2C66} = {D74F65C4-BE19-4D2E-8970-609DA2EF2C66}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

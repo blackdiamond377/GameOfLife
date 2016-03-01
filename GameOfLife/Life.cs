@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameOfLife
 {
-    class Life
+    public class Life
     {
         const bool ALIVE = true, DEAD = false;
         Cell[,] _board;
