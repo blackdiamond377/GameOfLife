@@ -74,6 +74,8 @@ namespace GameDisplay
             aliveBrush.Color = Color.FromRgb(255, 0, 0);
             deadBrush = new SolidColorBrush();
             deadBrush.Color = Color.FromRgb(0, 0, 0);
+
+            updateCanvas();
             
         }
 
@@ -94,17 +96,36 @@ namespace GameDisplay
                     
                 }
             }
-            board.updateBoard();
         }
 
         private void _nextClicked()
         {
+            board.updateBoard();
             updateCanvas();
         }
 
         private void _resetClicked()
         {
+            Random rand = new Random();
+            
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    if (rand.Next(0, 2) == 0)
+                    {
+                        startingBoard[i, j] = new Cell(true, i, j);
 
+                    }
+                    else
+                    {
+                        startingBoard[i, j] = new Cell(false, i, j);
+                    }
+                }
+            }
+
+            board = new Life(rows, cols, startingBoard);
+            updateCanvas();
         }
     }
 }
