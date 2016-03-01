@@ -1,1 +1,6 @@
 C:\Users\earharpm\Desktop\Projects\GameOfLife\GameOfLife\bin\Debug\GameOfLife.exe.config
+C:\Users\earharpm\Desktop\Projects\GameOfLife\GameOfLife\bin\Debug\GameOfLife.exe
+C:\Users\earharpm\Desktop\Projects\GameOfLife\GameOfLife\bin\Debug\GameOfLife.pdb
+C:\Users\earharpm\Desktop\Projects\GameOfLife\GameOfLife\obj\Debug\GameOfLife.csprojResolveAssemblyReference.cache
+C:\Users\earharpm\Desktop\Projects\GameOfLife\GameOfLife\obj\Debug\GameOfLife.exe
+C:\Users\earharpm\Desktop\Projects\GameOfLife\GameOfLife\obj\Debug\GameOfLife.pdb
