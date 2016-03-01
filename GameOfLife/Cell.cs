@@ -36,14 +36,14 @@ namespace GameOfLife
 
         public void update()
         {
-            if (!_updated)
+            if (_updated)
             {
                 _isAlive = _willAlive;
                 _updated = false;
             }
             else
             {
-                throw new Exception(String.Format("You didn't update cell {0]{1} before updating", _row, _col));
+                throw new Exception(String.Format("You didn't update cell {0}{1} before updating", _row, _col));
             }
         }
 
@@ -61,6 +61,12 @@ namespace GameOfLife
             {
                 return _col;
             }
+        }
+
+        public override string ToString()
+        {
+            if (_isAlive) return "x";
+            return " ";
         }
     }
 }

@@ -9,43 +9,55 @@ namespace GameOfLife
     class Life
     {
         const bool ALIVE = true, DEAD = false;
-        Cell[,] board;
+        Cell[,] _board;
 
         public Life(int rows, int cols, Cell[,] startstate = null)
         {
             if (startstate == null)
             {
-                board = new Cell[rows, cols];
+                _board = new Cell[rows, cols];
                 for (int i = 0; i < rows; i++)
                 {
                     for (int j = 0; j < cols; j++)
                     {
-                        board[i, j] = new Cell(ALIVE, i, j);
+                        _board[i, j] = new Cell(ALIVE, i, j);
                     }
                 }
+            }
+            else
+            {
+                _board = startstate;
+            }
+        }
+
+        public Cell[,] board
+        {
+            get
+            {
+                return _board;
             }
         }
 
         public void updateBoard()
         {
-            foreach (Cell cell in board)
+            foreach (Cell cell in _board)
             {
                 int numNeighbors = getNumNeighbors(cell.row, cell.col);
-                if (numNeighbors < 2)
+                if (numNeighbors > 3 || numNeighbors < 2)
                 {
                     cell.isAlive = DEAD;
                 }
-                else if (numNeighbors > 3)
-                {
-                    cell.isAlive = DEAD;
-                }
-                else
+                else if (numNeighbors == 3)
                 {
                     cell.isAlive = ALIVE;
                 }
+                else
+                {
+                    cell.isAlive = cell.isAlive;
+                }
             }
 
-            foreach (Cell cell in board)
+            foreach (Cell cell in _board)
             {
                 cell.update();
             }
@@ -59,14 +71,18 @@ namespace GameOfLife
             for (int i = -1; i < 2; i++)
             {
                 int row = i + rOffset;
+                if (row < 0) row = _board.GetLength(0) - 1; // wraps for -1
+                else if (row >= _board.GetLength(0)) row = 0;
+
                 for (int j = -1; j < 2; j++)
                 {
                     int col = j + cOffset;
-                    if (row < 0) row = board.GetLength(0) + row; // wraps for -1
-                    if (!(i == 0 && j == 0)) // The center cell isn't its own neighbor
+                    if (col < 0) col = _board.GetLength(1) - 1;
+                    else if (col >= _board.GetLength(1)) col = 0;
+
+                    if (!(i == 0 && j == 0) && _board[row,col].isAlive) // The center cell isn't its own neighbor
                     {
-                        if (col < 0) col = board.GetLength(1) + col;
-                        if (board[row, col].isAlive) numAlive++;
+                        numAlive++;
                     }
                 }
             }
