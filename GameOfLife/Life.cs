@@ -84,6 +84,7 @@ namespace GameOfLife
                     {
                         numAlive++;
                     }
+                    if (numAlive > 3) return 4;
                 }
             }
 

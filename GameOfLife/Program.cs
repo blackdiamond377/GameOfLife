@@ -26,8 +26,8 @@ namespace GameOfLife
             if (args.Length == 0)
             {
                 Random rand = new Random();
-                rows = 40;
-                cols = 40;
+                rows = 80;
+                cols = 80;
 
                 startingBoard = new Cell[rows, cols];
 
@@ -50,7 +50,6 @@ namespace GameOfLife
                 game = new Life(rows, cols, startingBoard);
             }
             setupConsole();
-            //while (true) ;
             run();
             resetConsole();
         }
@@ -65,8 +64,8 @@ namespace GameOfLife
 
             Console.Clear();
             Console.SetWindowSize(1, 1);
-            Console.SetBufferSize(cols*2, rows);
-            Console.SetWindowSize(cols*2, rows);
+            Console.SetBufferSize(cols, rows);
+            Console.SetWindowSize(cols, rows);
             Console.CursorVisible = false;
         }
         public void resetConsole()
@@ -88,7 +87,7 @@ namespace GameOfLife
                     for(int j = 0; j < cols; j++)
                     {
                         dispString.Append(game.board[i, j].ToString());
-                        dispString.Append(" ");
+                        dispString.Append("");
                     }
                     Console.SetCursorPosition(0, i);
                     Console.Write(dispString.ToString());
