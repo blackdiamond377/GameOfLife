@@ -13,7 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GameOfLife;
-
+using System.Threading;
+using System.ComponentModel;
 
 namespace GameDisplay
 {
@@ -25,9 +26,11 @@ namespace GameDisplay
         Life board;
         int rows, cols, _width, _height;
 
-        Rectangle[,] drawingArray;
+        public Rectangle[,] drawingArray;
 
-        SolidColorBrush aliveBrush, deadBrush;
+        public SolidColorBrush aliveBrush, deadBrush;
+
+        bool playing;
 
         public MainWindow()
         {
@@ -35,10 +38,11 @@ namespace GameDisplay
 
             NextButton.Click += delegate { _nextClicked(); };
             ResetButton.Click += delegate { _resetClicked(); };
+            PlayButton.Click += delegate { _playClicked(); };
 
             
-            rows = 80;
-            cols = 80;
+            rows = 100;
+            cols = 100;
 
             _width = 5;
             _height = 5;
@@ -75,9 +79,11 @@ namespace GameDisplay
             Height = rows * _height + 25 + captionHeight + 4 * horizontalBorderHeight;
 
             updateCanvas();
+
+            playing = false;
         }
 
-        private void updateCanvas()
+        public void updateCanvas()
         {
             for (int i = 0; i < rows; i++)
             {
@@ -129,8 +135,15 @@ namespace GameDisplay
 
         private void _nextClicked()
         {
-            board.updateBoard();
-            updateCanvas();
+            BackgroundWorker backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += delegate
+            {
+                board.updateBoard();
+            };
+            backgroundWorker.RunWorkerAsync();
+            backgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler( delegate { updateCanvas(); } );
+
+            _stopPlaying();
         }
 
         private void _resetClicked()
@@ -139,6 +152,47 @@ namespace GameDisplay
 
             board = new Life(rows, cols, startingBoard);
             updateCanvas();
+
+            _stopPlaying();
+        }
+
+        private void _playClicked()
+        {
+            if (!playing)
+            {
+                _startPlaying();
+            }
+            else
+            {
+                _stopPlaying();
+            }
+        }
+
+        private void _startPlaying()
+        {
+            PlayButton.Content = "Pause";
+            playing = true;
+
+            BackgroundWorker backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += delegate
+            {
+                board.updateBoard();
+                Thread.Sleep(50);
+            };
+            
+            backgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delegate {
+                updateCanvas();
+                if (playing)
+                {
+                    backgroundWorker.RunWorkerAsync();
+                }
+            });
+            backgroundWorker.RunWorkerAsync();
+        }
+        private void _stopPlaying()
+        {
+            PlayButton.Content = "Play";
+            playing = false;
         }
     }
 }

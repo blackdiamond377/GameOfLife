@@ -19,7 +19,8 @@
         </Grid>
         <Grid Grid.Row="1">
             <Button Name="ResetButton" Content="Reset" HorizontalAlignment="Left"/>
-            <Button Name="NextButton" Content="Next" HorizontalAlignment="Left" Margin="35,0,0,0"/>
+            <Button Name="NextButton" Content="Next" HorizontalAlignment="Left" Width="35" Margin="35,0,0,0"/>
+            <Button Name="PlayButton" Content="Play" HorizontalAlignment="Left" Width="35" Margin="70,0,0,0"/>
         </Grid>
     </Grid>
 </Window>
